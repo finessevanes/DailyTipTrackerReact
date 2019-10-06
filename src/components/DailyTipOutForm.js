@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 class DailyTipOutForm extends React.Component{
   constructor(){
   super()
@@ -15,9 +16,10 @@ onDateInput=(e)=>{
 onTipAmountInput=(e)=>{
   this.setState({tipAmount: e.target.value});
 }
-onSavingsRateInput=(e)=>{
-  this.setState({savingsRate: e.target.value});
+onSavingsRateSelection=(e)=>{
+  this.setState({savingsRate: e.target.value})
 }
+
 handleClick=()=>{
     fetch("http://localhost:8080/dailytipout", {
       method: 'post',
@@ -38,9 +40,16 @@ handleClick=()=>{
 render(){
   return(
     <div>
-      <input type="text" onInput={this.onDateInput} placeholder="Date"/>
+      <input type="date" required pattern="\d{4}-\d{2}-\d{2}" onInput={this.onDateInput} placeholder="Date"/>
       <input type="number" onInput={this.onTipAmountInput} placeholder="Tip Amount"/>
-      <input type="number" onInput={this.onSavingsRateInput} placeholder="Savings Rate:'.2' for 20%"/>
+      <select onChange={this.onSavingsRateSelection}>
+        <option value="">Savings Rate</option>
+        <option value=".1">10%</option>
+        <option value=".15">15%</option>
+        <option value=".2">20%</option>
+        <option value=".25">25%</option>
+      </select>
+
       <button onClick={this.handleClick}>Save!</button>
     </div>
   )

@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import DailyTipOutForm from './components/DailyTipOutForm'
-
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class App extends React.Component{
   constructor(){
