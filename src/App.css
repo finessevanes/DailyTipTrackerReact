@@ -25,7 +25,7 @@
 
   #show_daily_tip_outs{
   }
-  #create__daily_tip_out{
+  #create_daily_tip_out{
   }
   nav ul{
     padding:0;
@@ -40,18 +40,17 @@
     text-decoration: none;
     color:black;
   }
-
 }
 
 
 @media only screen and (max-width: 768px) {
 
-  #show__daily_tip_outs{
+  #show_daily_tip_outs{
     bottom:0;
     left:0;
     background-color: lightblue;
   }
-  #create__daily_tip_out{
+  #create_daily_tip_out{
     bottom:0;
     right:0;
     background-color: lightgreen;

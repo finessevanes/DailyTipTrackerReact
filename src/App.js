@@ -5,9 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ShowDailyTipOuts from './components/ShowDailyTipOuts'
 import ShowDailyTipOut from './components/ShowDailyTipOut'
 
-const About=()=> {
-  return <h2>About</h2>;
-}
 
  class App extends React.Component{
    constructor(){
@@ -42,7 +39,7 @@ const About=()=> {
           </nav>
           <div id="content_body">
           <Switch>
-          <Route path="dailytipout/:id" render={(props)=>(
+          <Route path="/dailytipout/:id" render={(props)=>(
             <ShowDailyTipOut {...props} getDataFromAPI={this.getDataFromAPI}/>
           )}/>
           <Route path="/edit/dailytipout/:id" render={(props)=>(
