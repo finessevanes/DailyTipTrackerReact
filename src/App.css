@@ -20,3 +20,57 @@
 .App-link {
   color: #09d3ac;
 }
+
+@media only screen and (min-width: 768px) {
+
+  #show_daily_tip_outs{
+  }
+  #create__daily_tip_out{
+  }
+  nav ul{
+    padding:0;
+    margin: 0;
+  }
+
+  nav li{
+    list-style: none;
+    display: inline;
+  }
+  nav a{
+    text-decoration: none;
+    color:black;
+  }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  #show__daily_tip_outs{
+    bottom:0;
+    left:0;
+    background-color: lightblue;
+  }
+  #create__daily_tip_out{
+    bottom:0;
+    right:0;
+    background-color: lightgreen;
+  }
+  nav ul{
+    padding:0;
+    margin: 0;
+  }
+
+  nav li{
+    list-style: none;
+  }
+  nav a{
+    text-decoration: none;
+    color:black;
+    width: 50%;
+    position: absolute;
+    min-height: 50px;
+    height: 10vh;
+  }
+
+}
