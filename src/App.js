@@ -27,16 +27,9 @@ import ShowDailyTipOut from './components/ShowDailyTipOut'
     return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link id="show_daily_tip_outs" to="/">**Show All Tips**</Link>
-              </li>
-              <li>
-                <Link id="create_daily_tip_out" to="/create">__Add Tips__</Link>
-              </li>
-            </ul>
-          </nav>
+          <Link id="create_daily_tip_out" to="/create"><button>Add Tips</button></Link>
+          <Link id="show_daily_tip_outs" to="/"><button>View All Tips</button></Link>
+
           <div id="content_body">
           <Switch>
             <Route path="/dailytipout/:id" render={(props)=>(
