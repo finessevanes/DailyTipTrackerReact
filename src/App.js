@@ -39,18 +39,18 @@ import ShowDailyTipOut from './components/ShowDailyTipOut'
           </nav>
           <div id="content_body">
           <Switch>
-          <Route path="/dailytipout/:id" render={(props)=>(
-            <ShowDailyTipOut {...props} getDataFromAPI={this.getDataFromAPI}/>
-          )}/>
-          <Route path="/edit/dailytipout/:id" render={(props)=>(
-            <DailyTipOutForm {...props} getDataFromAPI={this.getDataFromAPI}/>
-          )}/>
-          <Route path="/create">
-            <DailyTipOutForm getDataFromAPI={this.getDataFromAPI} />
+            <Route path="/dailytipout/:id" render={(props)=>(
+              <ShowDailyTipOut {...props} getDataFromAPI={this.getDataFromAPI}/>
+            )}/>
+            <Route path="/edit/dailytipout/:id" render={(props)=>(
+              <DailyTipOutForm {...props} getDataFromAPI={this.getDataFromAPI}/>
+            )}/>
+            <Route path="/create">
+              <DailyTipOutForm getDataFromAPI={this.getDataFromAPI} />
+              </Route>
+            <Route exact path="/">
+              <ShowDailyTipOuts getDataFromAPI={this.getDataFromAPI} dailyTipOuts={this.state.dailyTipOuts} />
             </Route>
-          <Route exact path="/">
-            <ShowDailyTipOuts getDataFromAPI={this.getDataFromAPI} dailyTipOuts={this.state.dailyTipOuts} />
-          </Route>
           </Switch>
           </div>
         </div>
