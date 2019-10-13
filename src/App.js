@@ -1,55 +1,79 @@
-import React from 'react';
-import './App.css';
-import DailyTipOutForm from './components/DailyTipOutForm'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import ShowDailyTipOuts from './components/ShowDailyTipOuts'
-import ShowDailyTipOut from './components/ShowDailyTipOut'
+import React from 'react'
+import './App.css'
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
- class App extends React.Component{
-   constructor(){
-     super()
-     this.state= {
-       dailyTipOuts:[]
-     }
-   }
-  getDataFromAPI=()=>{
-    fetch("http://localhost:8080/dailytipouts")
-    .then((res) => res.json())
-    .then((response)=>{
-      this.setState({dailyTipOuts:response});
-    });
+
+
+class TipForm extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      date:"",
+      tipAmount:"",
+      savingsRate:""
+    }
   }
-  componentDidMount(){
-    this.getDataFromAPI();
+
+  handleDateChange=(e)=>{
+    this.setState({date : e.target.value})
+  }
+  handleTipAmountChange=(e)=>{
+    this.setState({tipAmount : e.target.value})
+  }
+  handleSavingsRateChange=(e)=>{
+    this.setState({savingsRate : e.target.value})
   }
   render(){
-    return (
-      <Router>
-        <div>
-          <Link id="create_daily_tip_out" to="/create"><button>Add Tips</button></Link>
-          <Link id="show_daily_tip_outs" to="/"><button>View All Tips</button></Link>
-
-          <div id="content_body">
-          <Switch>
-            <Route path="/dailytipout/:id" render={(props)=>(
-              <ShowDailyTipOut {...props} getDataFromAPI={this.getDataFromAPI}/>
-            )}/>
-            <Route path="/edit/dailytipout/:id" render={(props)=>(
-              <DailyTipOutForm {...props} getDataFromAPI={this.getDataFromAPI}/>
-            )}/>
-            <Route path="/create">
-              <DailyTipOutForm getDataFromAPI={this.getDataFromAPI} />
-              </Route>
-            <Route exact path="/">
-              <ShowDailyTipOuts getDataFromAPI={this.getDataFromAPI} dailyTipOuts={this.state.dailyTipOuts} />
-            </Route>
-          </Switch>
-          </div>
-        </div>
-      </Router>
-  );
+    console.log(this.state.date)
+    return(
+      <div>
+        <input type="date" onInput={this.handleDateChange} placeholder="Date"/>
+        <input type="number" onInput={this.handleTipAmountChange} placeholder="Tip Amount"/>
+        <select onInput={this.handleSavingsRateChange}>
+        <option>Savings Rate</option>
+          <option value=".15">15%</option>
+          <option value=".2">20%</option>
+          <option value=".3">25%</option>
+        </select>
+      </div>
+    )
   }
 }
 
-export default App;
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      tips: []
+    }
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8080/tips")
+    .then((res) => res.json())
+    .then((response)=>{
+      this.setState({tips:response})
+    });
+  }
+
+
+  render(){
+    let tipElementArr = this.state.tips.map((tips)=>{
+      return <div key={tips.id}>
+        Date: {tips.date},
+        Tip Amount: {tips.tipAmount},
+        Savings Rate: {tips.savingsRate}
+      </div>
+    })
+    return(
+      <div>
+      <TipForm />
+      {tipElementArr}
+      </div>
+    )
+  }
+}
+
+export default App
