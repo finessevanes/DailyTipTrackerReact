@@ -25,8 +25,21 @@ class TipForm extends React.Component{
   handleSavingsRateChange=(e)=>{
     this.setState({savingsRate : e.target.value})
   }
+  handleSaveClick=()=>{
+    fetch('http://localhost:8080/tip', {
+      method: 'post',
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        date: this.state.date,
+        tipAmount: this.state.tipAmount,
+        savingsRate: this.state.savingsRate})
+    })
+    this.props.getDataFromAPI();
+  }
+
   render(){
-    console.log(this.state.date)
     return(
       <div>
         <input type="date" onInput={this.handleDateChange} placeholder="Date"/>
@@ -37,6 +50,7 @@ class TipForm extends React.Component{
           <option value=".2">20%</option>
           <option value=".3">25%</option>
         </select>
+        <button onClick={this.handleSaveClick}>Save Tips</button>
       </div>
     )
   }
@@ -50,7 +64,7 @@ class App extends React.Component{
     }
   }
 
-  componentDidMount(){
+  getDataFromAPI=()=>{
     fetch("http://localhost:8080/tips")
     .then((res) => res.json())
     .then((response)=>{
@@ -58,19 +72,23 @@ class App extends React.Component{
     });
   }
 
+  componentDidMount(){
+    this.getDataFromAPI();
+  }
 
   render(){
-    let tipElementArr = this.state.tips.map((tips)=>{
-      return <div key={tips.id}>
-        Date: {tips.date},
-        Tip Amount: {tips.tipAmount},
-        Savings Rate: {tips.savingsRate}
+    let tipElementArr = this.state.tips.map((tip)=>{
+      return <div key={tip.id}>
+        Date: {tip.date},
+        Tip Amount: ${tip.tipAmount},
+        Savings Rate: {tip.savingsRate*100}%,
+        Amount Saved: ${Math.ceil(tip.tipAmount*tip.savingsRate)}
       </div>
     })
     return(
       <div>
-      <TipForm />
       {tipElementArr}
+      <TipForm getDataFromAPI={this.getDataFromAPI}/>
       </div>
     )
   }
