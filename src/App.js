@@ -35,8 +35,9 @@ class TipForm extends React.Component{
         date: this.state.date,
         tipAmount: this.state.tipAmount,
         savingsRate: this.state.savingsRate})
+    }).then(()=>{
+        this.props.getDataFromAPI();
     })
-    this.props.getDataFromAPI();
   }
 
   render(){
@@ -79,9 +80,11 @@ class App extends React.Component{
   render(){
     let tipElementArr = this.state.tips.map((tip)=>{
       return <div key={tip.id}>
-        Date: {tip.date},
-        Tip Amount: ${tip.tipAmount},
-        Savings Rate: {tip.savingsRate*100}%,
+        Date: <Moment format="MMM DD YY" withTitle>
+      {tip.date}
+  </Moment>,
+        Tip Amount: ${tip.tipAmount}
+        Savings Rate: {tip.savingsRate*100}%
         Amount Saved: ${Math.ceil(tip.tipAmount*tip.savingsRate)}
       </div>
     })
