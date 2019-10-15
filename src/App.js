@@ -3,8 +3,9 @@ import './App.css'
 import Moment from 'react-moment';
 import 'moment-timezone';
 import TipForm from './components/TipForm'
+import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom";
 
-class App extends React.Component{
+class TipApp extends React.Component{
   constructor(){
     super()
     this.state = {
@@ -50,6 +51,47 @@ class App extends React.Component{
       </div>
     )
   }
+}
+
+const App=()=>{
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route exact path="/">
+            <TipApp />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+const About=()=>{
+  return <h2>About</h2>;
+}
+
+const Users=()=>{
+  return <h2>Users</h2>;
 }
 
 export default App
