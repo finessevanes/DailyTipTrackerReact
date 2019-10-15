@@ -28,18 +28,19 @@ class TipForm extends React.Component{
       body: JSON.stringify({
         date: this.state.date,
         tipAmount: this.state.tipAmount,
-        savingsRate: this.state.savingsRate})
+        savingsRate: this.state.savingsRate
+      })
     }).then(()=>{
         this.props.getDataFromAPI();
+        this.setState({date:"", tipAmount:"", savingsRate:""})
     })
   }
-
   render(){
     return(
       <div>
-        <input type="date" onInput={this.handleDateChange} placeholder="Date"/>
-        <input type="number" onInput={this.handleTipAmountChange} placeholder="Tip Amount"/>
-        <select onInput={this.handleSavingsRateChange}>
+        <input type="date" value={this.state.date} onChange={this.handleDateChange} placeholder="Date"/>
+        <input type="number" value={this.state.tipAmount} onChange={this.handleTipAmountChange} placeholder="Tip Amount"/>
+        <select value={this.state.savingsRate} onChange={this.handleSavingsRateChange}>
         <option>Savings Rate</option>
           <option value=".15">15%</option>
           <option value=".2">20%</option>
@@ -51,4 +52,4 @@ class TipForm extends React.Component{
   }
 }
 
-export default TipForm
+export default TipForm;
