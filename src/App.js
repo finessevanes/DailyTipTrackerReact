@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import TipForm from './components/TipForm'
 import ShowTips from './components/ShowTips'
+import Home from './components/Home'
 import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom";
 
 class App extends React.Component{
@@ -24,8 +25,11 @@ class App extends React.Component{
         <div>
           <nav>
             <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
               <li>
-                <Link to="/">View Tips</Link>
+                <Link to="/tips">View Tips</Link>
               </li>
               <li>
                 <Link to="/create">Add Tips</Link>
@@ -33,10 +37,13 @@ class App extends React.Component{
             </ul>
           </nav>
           <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
             <Route path="/create">
               <TipForm getDataFromAPI={this.getDataFromAPI}/>
             </Route>
-            <Route exact path="/">
+            <Route path="/tips">
               <ShowTips getDataFromAPI={this.getDataFromAPI} tips={this.state.tips}/>
             </Route>
           </Switch>
