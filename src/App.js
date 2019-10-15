@@ -31,7 +31,7 @@ class TipApp extends React.Component{
         Date: <Moment format="MMMM DD YY" withTitle>{tip.date}</Moment>
         Tip Amount: ${tip.tipAmount}
         Savings Rate: {tip.savingsRate*100}%
-        Amount Saved: ${Math.ceil(tip.tipAmount*tip.savingsRate)}
+        Amount Saved: ${tip.amountSaved}
         <button onClick={()=>this.handleDeleteClick(tip.id)}>Delete</button>
       </div>
     )

@@ -6,7 +6,8 @@ class TipForm extends React.Component{
     this.state={
       date:"",
       tipAmount:"",
-      savingsRate:""
+      savingsRate:"",
+      amountSaved:""
     }
   }
 
@@ -19,6 +20,9 @@ class TipForm extends React.Component{
   handleSavingsRateChange=(e)=>{
     this.setState({savingsRate : e.target.value})
   }
+  handleAmountSavedChange=(e)=>{
+    this.setState({amountSaved: e.target.value})
+  }
   handleSaveClick=()=>{
     fetch('http://localhost:8080/tip', {
       method: 'post',
@@ -28,11 +32,12 @@ class TipForm extends React.Component{
       body: JSON.stringify({
         date: this.state.date,
         tipAmount: this.state.tipAmount,
-        savingsRate: this.state.savingsRate
+        savingsRate: this.state.savingsRate,
+        amountSaved: this.state.amountSaved
       })
     }).then(()=>{
         this.props.getDataFromAPI();
-        this.setState({date:"", tipAmount:"", savingsRate:""})
+        this.setState({date:"", tipAmount:"", savingsRate:"", amountSaved:""})
     })
   }
   render(){
@@ -46,6 +51,9 @@ class TipForm extends React.Component{
           <option value=".2">20%</option>
           <option value=".3">25%</option>
         </select>
+        <input
+        value={this.state.amountSaved}
+        type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.handleAmountSavedChange} />
         <button onClick={this.handleSaveClick}>Save Tips</button>
       </div>
     )
