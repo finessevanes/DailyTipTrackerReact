@@ -12,6 +12,15 @@ class App extends React.Component{
     }
   }
 
+  handleDeleteClick=(id)=>{
+    fetch('http://localhost:8080/tip/'+ id, {
+      method: 'delete',
+    }).then(()=>{
+        this.getDataFromAPI();
+    })
+  }
+
+
   getDataFromAPI=()=>{
     fetch("http://localhost:8080/tips")
     .then((res) => res.json())
@@ -31,6 +40,7 @@ class App extends React.Component{
         Tip Amount: ${tip.tipAmount}
         Savings Rate: {tip.savingsRate*100}%
         Amount Saved: ${Math.ceil(tip.tipAmount*tip.savingsRate)}
+        <button onClick={()=>this.handleDeleteClick(tip.id)}>Delete</button>
       </div>
     })
     return(
