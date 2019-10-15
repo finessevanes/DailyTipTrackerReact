@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 class TipForm extends React.Component{
   constructor(){
@@ -54,7 +55,7 @@ class TipForm extends React.Component{
         <input
         value={this.state.amountSaved}
         type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.handleAmountSavedChange} />
-        <button onClick={this.handleSaveClick}>Save Tips</button>
+        <Link to="/"><button onClick={this.handleSaveClick}>Save Tips</button></Link>
       </div>
     )
   }
