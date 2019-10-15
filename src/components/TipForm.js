@@ -5,23 +5,26 @@ class TipForm extends React.Component{
   constructor(){
     super()
     this.state={
+      id: 0,
       date:"",
       tipAmount:"",
       savingsRate:"",
       amountSaved:""
     }
   }
-
-  handleDateChange=(e)=>{
+  onIdInput=(e)=>{
+    this.setState({id : e.target.value})
+  }
+  onDateInput=(e)=>{
     this.setState({date : e.target.value})
   }
-  handleTipAmountChange=(e)=>{
+  onTipAmountInput=(e)=>{
     this.setState({tipAmount : e.target.value})
   }
-  handleSavingsRateChange=(e)=>{
+  onSavingsRateInput=(e)=>{
     this.setState({savingsRate : e.target.value})
   }
-  handleAmountSavedChange=(e)=>{
+  onAmountSavedInput=(e)=>{
     this.setState({amountSaved: e.target.value})
   }
   handleSaveClick=()=>{
@@ -41,12 +44,38 @@ class TipForm extends React.Component{
         this.setState({date:"", tipAmount:"", savingsRate:"", amountSaved:""})
     })
   }
+  handleUpdateClick=()=>{
+    fetch('http://localhost:8080/tip/' + this.state.id, {
+      method: 'put',
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        date: this.state.date,
+        tipAmount: this.state.tipAmount,
+        savingsRate: this.state.savingsRate,
+        amountSaved: this.state.amountSaved
+      })
+    }).then(()=>{
+        this.props.getDataFromAPI();
+        this.setState({date:"", tipAmount:"", savingsRate:"", amountSaved:"", id:0})
+    })
+  }
   render(){
+    let idInput="";
+    let buttonAction;
+    if (this.props.action === "update"){
+      buttonAction = <button onClick={this.handleUpdateClick}>Update Tips</button>
+      idInput = <input type="number" value={this.state.id} onChange={this.onIdInput} placeholder="ID"/>
+    } else {
+      buttonAction = <button onClick={this.handleSaveClick}>Save Tips</button>
+    }
     return(
       <div>
-        <input type="date" value={this.state.date} onChange={this.handleDateChange} placeholder="Date"/>
-        <input type="number" value={this.state.tipAmount} onChange={this.handleTipAmountChange} placeholder="Tip Amount"/>
-        <select value={this.state.savingsRate} onChange={this.handleSavingsRateChange}>
+        {idInput}
+        <input type="date" value={this.state.date} onChange={this.onDateInput} placeholder="Date"/>
+        <input type="number" value={this.state.tipAmount} onChange={this.onTipAmountInput} placeholder="Tip Amount"/>
+        <select value={this.state.savingsRate} onChange={this.onSavingsRateInput}>
         <option>Savings Rate</option>
           <option value=".15">15%</option>
           <option value=".2">20%</option>
@@ -54,8 +83,9 @@ class TipForm extends React.Component{
         </select>
         <input
         value={this.state.amountSaved}
-        type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.handleAmountSavedChange} />
-        <Link to="/"><button onClick={this.handleSaveClick}>Save Tips</button></Link>
+        type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.onAmountSavedInput} />
+        <Link to="/">{buttonAction}</Link>
+
       </div>
     )
   }

@@ -24,6 +24,7 @@ class ShowTips extends React.Component{
     let tipElementArr = this.props.tips.map((tip)=>{
       return (
         <div key={tip.id}>
+        ID: ${tip.id}
         Date: <Moment format="MMMM DD YY" withTitle>{tip.date}</Moment>
         Tip Amount: ${tip.tipAmount}
         Savings Rate: {tip.savingsRate*100}%

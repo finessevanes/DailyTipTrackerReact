@@ -34,6 +34,9 @@ class App extends React.Component{
               <li>
                 <Link to="/create">Add Tips</Link>
               </li>
+              <li>
+                <Link to="/update">Update Tips</Link>
+              </li>
             </ul>
           </nav>
           <Switch>
@@ -41,10 +44,13 @@ class App extends React.Component{
             <Home />
           </Route>
             <Route path="/create">
-              <TipForm getDataFromAPI={this.getDataFromAPI}/>
+              <TipForm action="create" getDataFromAPI={this.getDataFromAPI}/>
             </Route>
             <Route path="/tips">
               <ShowTips getDataFromAPI={this.getDataFromAPI} tips={this.state.tips}/>
+            </Route>
+            <Route path="/update">
+              <TipForm action="update" getDataFromAPI={this.getDataFromAPI}/>
             </Route>
           </Switch>
         </div>
