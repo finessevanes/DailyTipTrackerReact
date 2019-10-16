@@ -2,8 +2,10 @@ import React from 'react'
 import './App.css'
 import TipForm from './components/TipForm'
 import ShowTips from './components/ShowTips'
+import ShowTip from './components/ShowTip'
 import Home from './components/Home'
 import { BrowserRouter as Router,Switch,Route,Link } from "react-router-dom";
+
 
 class App extends React.Component{
   constructor(){
@@ -34,12 +36,12 @@ class App extends React.Component{
               <li>
                 <Link to="/create">Add Tips</Link>
               </li>
-              <li>
-                <Link to="/update">Update Tips</Link>
-              </li>
             </ul>
           </nav>
           <Switch>
+          <Route path="/tip/:id" render={(props)=>(
+            <ShowTip {...props} getDataFromAPI={this.getDataFromAPI}/>
+          )}/>
           <Route exact path="/">
             <Home />
           </Route>

@@ -84,8 +84,7 @@ class TipForm extends React.Component{
         <input
         value={this.state.amountSaved}
         type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.onAmountSavedInput} />
-        <Link to="/">{buttonAction}</Link>
-
+        <Link to="/tips/">{buttonAction}</Link>
       </div>
     )
   }
