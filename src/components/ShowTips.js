@@ -10,22 +10,16 @@ class ShowTips extends React.Component{
       tips: []
     }
   }
-
-
   componentDidMount(){
     this.props.getDataFromAPI();
   }
   render(){
     let tipElementArr = this.props.tips.map((tip)=>{
       return (
-        <Link to={"/tip/" + tip.id} key={tip.id}>
-        <div>
-        ID: {tip.id}
-        Date: <Moment format="MMMM DD YY" withTitle>{tip.date}</Moment>
-        Tip Amount: ${tip.tipAmount}
-        Savings Rate: {tip.savingsRate*100}%
-        Amount Saved: ${tip.amountSaved}
-        </div>
+        <Link className="viewTips" to={"/tip/" + tip.id} key={tip.id}>
+          <div className="contentContainer">
+            <button className="formElem btnForm"><Moment format="MMMM DD YY" withTitle>{tip.date}</Moment></button>
+          </div>
       </Link>
     )
   })
@@ -36,5 +30,4 @@ class ShowTips extends React.Component{
     );
   }
 }
-
 export default ShowTips

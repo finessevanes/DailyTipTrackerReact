@@ -23,40 +23,29 @@ class App extends React.Component{
   }
   render(){
     return (
-      <Router>
-        <div>
-          <nav>
-            <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-              <li>
-                <Link to="/tips">View Tips</Link>
-              </li>
-              <li>
-                <Link to="/create">Add Tips</Link>
-              </li>
-            </ul>
-          </nav>
-          <Switch>
-          <Route path="/tip/:id" render={(props)=>(
-            <ShowTip {...props} getDataFromAPI={this.getDataFromAPI}/>
-          )}/>
-          <Route exact path="/">
-            <Home />
-          </Route>
-            <Route path="/create">
-              <TipForm action="create" getDataFromAPI={this.getDataFromAPI}/>
+        <Router>
+          <div>
+            <Link to="/"><img src={'https://i.ibb.co/7yR3stg/brandmark-design-1080x0-1.png'}/></Link>
+            <Switch>
+            <Route path="/tip/:id" render={(props)=>(
+              <ShowTip {...props} getDataFromAPI={this.getDataFromAPI}/>
+            )}/>
+            <Route exact path="/">
+              <Home />
             </Route>
-            <Route path="/tips">
-              <ShowTips getDataFromAPI={this.getDataFromAPI} tips={this.state.tips}/>
-            </Route>
-            <Route path="/update">
-              <TipForm action="update" getDataFromAPI={this.getDataFromAPI}/>
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+              <Route path="/create">
+                <TipForm action="create" getDataFromAPI={this.getDataFromAPI}/>
+              </Route>
+              <Route path="/tips">
+                <ShowTips getDataFromAPI={this.getDataFromAPI} tips={this.state.tips}/>
+              </Route>
+              <Route path="/update">
+                <TipForm action="update" getDataFromAPI={this.getDataFromAPI}/>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+
     );
   }
 }

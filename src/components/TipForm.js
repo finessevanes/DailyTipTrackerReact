@@ -65,27 +65,26 @@ class TipForm extends React.Component{
     let idInput="";
     let buttonAction;
     if (this.props.action === "update"){
-      buttonAction = <button onClick={this.handleUpdateClick}>Update Tips</button>
-      idInput = <input type="number" value={this.state.id} onChange={this.onIdInput} placeholder="ID"/>
+      buttonAction = <button className="formElem btnForm" onClick={this.handleUpdateClick}>Update Tips</button>
+      idInput = <input className="formElem" type="number" value={this.state.id} onChange={this.onIdInput} placeholder="ID"/>
     } else {
-      buttonAction = <button onClick={this.handleSaveClick}>Save Tips</button>
+      buttonAction = <button className="formElem btnForm" onClick={this.handleSaveClick}>Save Tips</button>
     }
     return(
-      <div>
-        {idInput}
-        <input type="date" value={this.state.date} onChange={this.onDateInput} placeholder="Date"/>
-        <input type="number" value={this.state.tipAmount} onChange={this.onTipAmountInput} placeholder="Tip Amount"/>
-        <select value={this.state.savingsRate} onChange={this.onSavingsRateInput}>
-        <option>Savings Rate</option>
-          <option value=".15">15%</option>
-          <option value=".2">20%</option>
-          <option value=".3">25%</option>
-        </select>
-        <input
-        value={this.state.amountSaved}
-        type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.onAmountSavedInput} />
-        <Link to="/tips/">{buttonAction}</Link>
-      </div>
+        <div className="contentContainer">
+          {idInput}
+          <input className="formElem" type="date" value={this.state.date} onChange={this.onDateInput}/>
+          <input className="formElem" type="number" value={this.state.tipAmount} onChange={this.onTipAmountInput} placeholder="Tip Amount"/>
+          <select className="formElem" value={this.state.savingsRate} onChange={this.onSavingsRateInput}>
+            <option>Savings Rate</option>
+            <option value=".15">15%</option>
+            <option value=".2">20%</option>
+            <option value=".3">25%</option>
+          </select>
+          <input className="formElem" value={this.state.amountSaved} type="number" placeholder={Math.ceil(this.state.tipAmount*this.state.savingsRate)} onChange={this.onAmountSavedInput} />
+          <Link to="/tips/">{buttonAction}</Link>
+        </div>
+
     )
   }
 }
